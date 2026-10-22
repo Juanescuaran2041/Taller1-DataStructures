@@ -18,7 +18,7 @@ class CourierRing:
             new_delivery.next = new_delivery
             new_delivery.prev = new_delivery
         else:
-            last = self.current_courier
+            last = self.current_courier.prev
             last.next = new_delivery
             
             new_delivery.next = self.current_courier
@@ -42,7 +42,7 @@ class CourierRing:
                 return None 
 
                 
-    def currnet_delivery (self):
+    def current_delivery (self):
         if self.is_empty():
             return None
         return self.current_courier
@@ -73,7 +73,7 @@ class CourierRing:
         current:DeliverNode = self.current_courier.next
         
         while (current != self.current_courier):
-            deliveries.append(current)
+            deliveries.append(current.delivery_man)
             current = current.next
             
         return deliveries

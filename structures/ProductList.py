@@ -12,8 +12,20 @@ class ProductCatalog:
         self.total = 0
 
 
-    def register_product (self, code:str):
-        new_product = Product(code)
+    def find (self, code:str):
+        current = self.firstProduct
+        while current is not None:
+            if current.product.code == code:
+                return current.product
+            current = current.next
+        return None
+
+    def register_product (self, code:str, recipe) -> bool:
+        # rejects duplicated codes and empty recipes (RF-01)
+        if self.find(code) is not None or recipe is None or recipe.is_empty():
+            return False
+
+        new_product = Product(code, recipe)
 
         new_node = ProductNode(new_product)
 
@@ -25,6 +37,7 @@ class ProductCatalog:
             self.lastProduct = new_node
 
         self.total +=1
+        return True
 
     def is_empty (self):
         return self.total == 0
