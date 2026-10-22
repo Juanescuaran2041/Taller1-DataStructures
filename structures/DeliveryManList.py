@@ -39,4 +39,42 @@ class CourierRing:
                 return current
             current = current.next
             if (current is self.current_courier):
-                return None
+                return None 
+
+                
+    def currnet_delivery (self):
+        if self.is_empty():
+            return None
+        return self.current_courier
+    
+    def remove(self, code):
+        deliver = self.find(code)
+        
+        if deliver is None:
+            return None
+        
+        if deliver.next == deliver:
+            self.current_courier = None
+        else:
+            deliver.prev.next = deliver.next
+            deliver.next.prev = deliver.prev
+
+            if deliver == self.current_courier:
+                self.current_courier = deliver.next
+        
+        return True
+    
+    def to_list (self):
+        deliveries = []
+        if self.is_empty():
+            return None
+        deliveries.append(self.current_courier.delivery_man)
+        
+        current:DeliverNode = self.current_courier.next
+        
+        while (current != self.current_courier):
+            deliveries.append(current)
+            current = current.next
+            
+        return deliveries
+            
