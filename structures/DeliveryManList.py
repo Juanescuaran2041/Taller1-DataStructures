@@ -29,6 +29,10 @@ class CourierRing:
     def is_empty(self):
         return self.current_courier is None
     
+    def advance (self):
+        if self.current_courier is not None:
+            self.current_courier = self.current_courier.next
+
     def find(self, code:str):
         if self.is_empty():
             return None
